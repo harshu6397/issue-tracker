@@ -1,7 +1,12 @@
+"use client";
+import classNames from 'classnames';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { SiIssuu } from 'react-icons/si';
 
 const Navbar = () => {
+    const currentPath = usePathname()
+    console.log(currentPath)
     const navLinks = [
         { title: 'Dashboard', path: '/' },
         { title: 'issues', path: '/issues' },
@@ -21,7 +26,12 @@ const Navbar = () => {
                         {
                             navLinks.map((link, index) => (
                                 <li key={index}>
-                                    <Link href={link.path} className="block py-2 px-3 text-dark bg-dark rounded md:bg-transparent md:text-dark md:p-0 text-gray-500 hover:text-gray-800">
+                                    <Link href={link.path} className={classNames({
+                                        'text-gray-500': currentPath !== link.path,
+                                        'text-gray-900': currentPath === link.path,
+                                        'hover:text-zinc-500 transition-colors' : true
+                                    })}  
+                                    >
                                         {link.title}
                                     </Link>
                                 </li>
